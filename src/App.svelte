@@ -1,10 +1,11 @@
 <script>
 	import TreeGraph from './TreeGraph.svelte';
+	export let treeData;
 </script>
 
 <main>
-	<h1>Svelte D3 Tree Graph</h1>
-	<TreeGraph />
+	<h1>Advisor Box Tree</h1>
+	<TreeGraph {treeData} />
 </main>
 
 <style>
@@ -18,4 +19,6 @@
 		color: #ff3e00;
 		text-transform: uppercase;
 	}
+
+	
 </style>

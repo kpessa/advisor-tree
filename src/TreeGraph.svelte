@@ -1,7 +1,10 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
-  import treeStructure from './tree_structure.json';
+  import ZoomControl from './ZoomControl.svelte';
+  import NodeDetail from './NodeDetail.svelte';
+
+  export let treeData;
 
   function transformData(data) {
     const result = {
@@ -26,7 +29,7 @@
     return result;
   }
 
-  let data = transformData(treeStructure);
+  let data = transformData(treeData);
 
   let root, tree, diagonal, svg, gLink, gNode;
   const width = 1200; // Increase the width
@@ -38,6 +41,33 @@
 
   let zoom;
   let g;
+
+  let zoomLevel = 100;
+
+  let selectedNode = null;
+  let isDetailOpen = false;
+
+  function handleNodeClick(event, d) {
+    selectedNode = d;
+    isDetailOpen = true;
+    d.children = d.children ? null : d._children;
+    update(event, d);
+  }
+
+  function handleZoom(event) {
+    if (event.detail.direction === 'in') {
+      zoom.scaleBy(svg.transition().duration(750), 1.2);
+    } else if (event.detail.direction === 'out') {
+      zoom.scaleBy(svg.transition().duration(750), 1 / 1.2);
+    } else if (event.detail.level) {
+      const scale = event.detail.level / 100;
+      zoom.scaleTo(svg.transition().duration(750), scale);
+    }
+  }
+
+  function updateZoomLevel() {
+    zoomLevel = Math.round(d3.zoomTransform(svg.node()).k * 100);
+  }
 
   function update(event, source) {
     const duration = event?.altKey ? 2500 : 250; // hold the alt key to slow down the transition
@@ -77,10 +107,7 @@
         .attr("transform", d => `translate(${source.y0},${source.x0})`)
         .attr("fill-opacity", 0)
         .attr("stroke-opacity", 0)
-        .on("click", (event, d) => {
-          d.children = d.children ? null : d._children;
-          update(event, d);
-        });
+        .on("click", handleNodeClick);
 
     nodeEnter.append("circle")
         .attr("r", 6) // Slightly larger circles
@@ -158,7 +185,10 @@
     // Add zoom behavior
     zoom = d3.zoom()
       .scaleExtent([0.1, 4])
-      .on("zoom", zoomed);
+      .on("zoom", (event) => {
+        zoomed(event);
+        updateZoomLevel();
+      });
 
     svg.call(zoom);
 
@@ -194,12 +224,30 @@
   });
 </script>
 
-<div id="tree-container"></div>
+<div id="tree-container">
+  <div class="zoom-control-container">
+    <ZoomControl {zoomLevel} on:zoom={handleZoom} />
+  </div>
+  <NodeDetail bind:node={selectedNode} bind:isOpen={isDetailOpen} />
+</div>
 
 <style>
   #tree-container {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    position: relative;
+  }
+
+  :global(svg) {
+    border: 1px solid black;
+  }
+
+  .zoom-control-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
   }
 </style>
