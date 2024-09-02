@@ -1,0 +1,388 @@
+{
+    "userarea": {
+        "PILOT_ALERT_WRAP": {
+            "PILOT_ALERT": {
+                "PILOT_ALERT_TEXT": {
+                    "AdvisorSign": {}
+                }
+            }
+        },
+        "AGEWARNWRAP": {
+            "AGEWARNTEXT": {}
+        },
+        "PO": {
+            "PO1": {
+                "PO1_Fluid_EC": {
+                    "PO1_Fluid_EC_Ord": {},
+                    "PO1_Fluid_EC_DC": {
+                        "FluidList": {}
+                    }
+                },
+                "PO1_Fluid_BICARB": {
+                    "PO1_Bicarb_Gtt": {},
+                    "PO1_Bicarb_Gtt_DC": {
+                        "SODIUM BICARBONATE/STERILE WATER 100 MEQ/500 ML": {}
+                    },
+                    "PO1_ABGs": {},
+                    "PO1_ABGs_DC": {
+                        "BLOOD GAS": {},
+                        "ABG": {},
+                        "ARTERIAL BLOOD GAS STM": {},
+                        "BLOOD GAS VENOUS TEX": {},
+                        "ABG NNM": {},
+                        "ABG PRM": {},
+                        "ARTERIAL BLOOD GAS SOCAL": {},
+                        "BLOOD GAS ARTERIAL WITH COOXIMETRY": {},
+                        "BLOOD GAS ARTERIAL W LACTATE GWU": {}
+                    }
+                },
+                "PO1_Insul": {
+                    "PO1_Insulin_Push_Wrapper": {
+                        "PO1_Insulin_Push": {
+                            "PO1_Insulin_Push_ORDER": {},
+                            "PO1_Insulin_Push_DC": {
+                                "all": {}
+                            }
+                        }
+                    },
+                    "PO1_Insulin_Gtt": {
+                        "PO1_Insulin_Gtt_Order": {},
+                        "PO1_Insulin_Gtt_DC": {
+                            "INSULIN REGULAR/NS 100 UNITS/100 ML": {},
+                            "INSULIN REGULAR, HUMAN REC/NS 250 UNITS/250 ML": {}
+                        }
+                    },
+                    "PO1_Insulin_Gtt_Potassium": {
+                        "PO1_Insulin_LowK_Gtt_Order": {}
+                    }
+                },
+                "PO1_Electrolyte": {
+                    "PO1_ELECTROLYTE_K": {
+                        "PO1_ELECTROLYTE_KLow": {
+                            "PO1_ELECTROLYTE_KLowCQ": {
+                                "PO1_ELECTROLYTE_K_ORDER": {}
+                            },
+                            "PO1_ELECTROLYTE_KLowCnQ": {
+                                "PO1_ELECTROLYTE_K_ORDER": {}
+                            }
+                        },
+                        "PO1_ELECTROLYTE_KMed": {
+                            "PO1_ELECTROLYTE_KMedCQ": {
+                                "PO1_ELECTROLYTE_K_ORDER": {}
+                            },
+                            "PO1_ELECTROLYTE_KMedCnQ": {}
+                        },
+                        "PO1_ELECTROLYTE_K_DC": {
+                            "POTASSIUM CHLORIDE 10 MEQ/50 ML INTRAVENOUS SOLUTION": {},
+                            "POTASSIUM CHLORIDE 10 MEQ/100 ML INTRAVENOUS SOLUTION": {},
+                            "POTASSIUM CHLORIDE 20 MEQ/100 ML INTRAVENOUS SOLUTION": {}
+                        }
+                    },
+                    "PO1_ELECTROLYTE_MG": {
+                        "PO1_ELECTROLYTE_MG_ORDER": {},
+                        "PO1_ELECTROLYTE_MG_DC": {
+                            "MAGNESIUM SULFATE IV": {}
+                        }
+                    },
+                    "PO1_ELECTROLYTE_PHOS": {
+                        "PO1_ELECTROLYTE_PHOS_ORDER": {},
+                        "PO1_ELECTROLYTE_PHOS_DC": {
+                            "SODIUM PHOSPHATE": {}
+                        }
+                    }
+                },
+                "PO1_Diet": {},
+                "PO1_Lab": {
+                    "PO_Lab_ORDER": {
+                        "PO_Lab_ORDER_Once": {},
+                        "PO_Lab_ORDER_TS": {}
+                    },
+                    "PO_Lab_DC": {
+                        "BASIC METABOLIC PANEL": {},
+                        "MAGNESIUM LEVEL": {},
+                        "PHOSPHORUS LEVEL": {},
+                        "ACETONE QUANT": {},
+                        "OSMOLALITY SERUM": {},
+                        "BETA HYDROXYBUTYRATE": {},
+                        "BETA HYDROXYBUTYRATE.": {},
+                        "BMP": {}
+                    }
+                },
+                "PO1_Notify": {
+                    "NotifyOrder_1": {},
+                    "DCOrder_1": {
+                        "NOTIFY PROVIDER LABORATORY RESULTS": {}
+                    }
+                },
+                "PO1_Patient_Care": {
+                    "PC1_ORDERS_NONE": {},
+                    "PC1_ORDERS_SOME": {},
+                    "PC1_DC": {
+                        "BEDSIDE BLOOD GLUCOSE MONITORING": {}
+                    }
+                }
+            },
+            "PO2": {
+                "PO2_MaintenanceFluid": {},
+                "PO2_Electrolyte": {
+                    "PO2_Electrolyte_Order_K": {},
+                    "PO2_Electrolyte_Order_Mg": {},
+                    "PO2_Electrolyte_Order_Phos": {},
+                    "PO2_Electrolyte_DC": {
+                        "POTASSIUM CHLORIDE - IV - ICU": {},
+                        "MAGNESIUM SULFATE - IV": {},
+                        "SODIUM PHOSPHATE - ORAL & IV": {}
+                    }
+                },
+                "PO2_Diet": {
+                    "PO2_Diet_ord": {}
+                },
+                "PO2_Lab": {
+                    "PO_Lab_ORDER_2": {
+                        "PO_Lab_ORDER_Once_2": {},
+                        "PO_Lab_ORDER_TS_2": {}
+                    },
+                    "PO_Lab_DC_2": {
+                        "BASIC METABOLIC PANEL": {},
+                        "MAGNESIUM LEVEL": {},
+                        "PHOSPHORUS LEVEL": {},
+                        "ACETONE QUANT": {},
+                        "OSMOLALITY SERUM": {},
+                        "BETA HYDROXYBUTYRATE": {},
+                        "BETA HYDROXYBUTYRATE.": {},
+                        "BMP": {}
+                    }
+                },
+                "PO2_Notify": {
+                    "NotifyOrder": {},
+                    "DCOrder": {
+                        "NOTIFY PROVIDER LABORATORY RESULTS": {}
+                    }
+                },
+                "PO2_Patient_Care": {
+                    "PC2_ORDERS_NONE": {},
+                    "PC2_ORDERS_SOME": {},
+                    "PC2_DC": {
+                        "BEDSIDE BLOOD GLUCOSE MONITORING": {}
+                    }
+                }
+            }
+        },
+        "PM": {
+            "PM_PO2Warn": {
+                "PM_PO2WarnText": {}
+            },
+            "PM_PO2Suppress": {
+                "PM_PO2SuppressText": {}
+            },
+            "PM_Manage": {
+                "PM_Nurse": {
+                    "PM_Insulin": {
+                        "PM_FLUID_MANAGE_V2": {
+                            "FluidManager": {
+                                "FluidRecoD10": {},
+                                "FluidRecoD5W": {},
+                                "FluidRecoNS": {},
+                                "FluidRecoHNS": {},
+                                "FluidRecoD5NS": {},
+                                "FluidRecoD5HNS": {},
+                                "D/C Fluids": {
+                                    "FluidList": {}
+                                }
+                            }
+                        },
+                        "PM_FLUID_MANAGE_NO": {},
+                        "PM_INSULIN_MANAGE": {
+                            "PM_INSULIN_GTT_ORDER": {},
+                            "PM_INSULIN_PUSH": {}
+                        },
+                        "PM_GLUC_LOW": {}
+                    },
+                    "PM_Insulin_SuppressedCNR": {
+                        "PM_Insulin_Suppressed": {},
+                        "PM_Insulin_Suppressed2": {},
+                        "PM_Insulin_Suppressed3": {}
+                    },
+                    "PM_AcidosisCorrection": {
+                        "PM_BICARB_MANAGE_lab": {
+                            "PM_BICARB_MANAGE_lab_ph": {},
+                            "PM_BICARB_MANAGE_lab_co2": {}
+                        },
+                        "PM_BICARB_MANAGE_order": {}
+                    }
+                },
+                "PM_Electrolyte": {
+                    "PM_Ele_K": {
+                        "PM_Ele_K0": {},
+                        "PM_Ele_K1": {
+                            "PM_Ele_K1_LowK": {
+                                "PM_Ele_K1_Info": {},
+                                "PM_Ele_K1_LowK_LowCrHighClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_40meq_Action": {},
+                                    "PM_Ele_K1_40meq_Order": {}
+                                },
+                                "PM_Ele_K1_LowK_HighCrLowClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_LowK_20meq_Action": {},
+                                    "PM_Ele_K1_20meq_Order": {}
+                                },
+                                "PM_Ele_K1_LowK_HighCrHighClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_LowK_20meq_Action": {},
+                                    "PM_Ele_K1_20meq_Order": {}
+                                },
+                                "PM_Ele_K1_LowK_LowCrLowClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_LowK_20meq_Action": {},
+                                    "PM_Ele_K1_20meq_Order": {}
+                                }
+                            },
+                            "PM_Ele_K1_MidK": {
+                                "PM_Ele_K1_Info": {},
+                                "PM_Ele_K1_MidK_LowCrHighClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_40meq_Action": {},
+                                    "PM_Ele_K1_40meq_Order": {}
+                                },
+                                "PM_Ele_K1_MidK_HighCrLowClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_MidK_Call_Action": {}
+                                },
+                                "PM_Ele_K1_MidK_HighCrHighClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_MidK_Call_Action": {}
+                                },
+                                "PM_Ele_K1_MidK_LowCrLowClear": {
+                                    "PM_Ele_K1_CrClear_Info": {},
+                                    "PM_Ele_K1_MidK_Call_Action": {}
+                                }
+                            },
+                            "PM_Ele_K1_HighK": {
+                                "PM_Ele_K1_Info": {},
+                                "PM_Ele_K1_HighK_Action": {}
+                            }
+                        }
+                    },
+                    "PM_Ele_Mg": {
+                        "PM_Ele_Mg0": {},
+                        "PM_Ele_Mg1": {
+                            "PM_Ele_Mg1_LowMg": {
+                                "PM_Ele_Mg1_Info": {},
+                                "PM_Ele_Mg1_LowMg_Action": {},
+                                "PM_Ele_Mg1_LowMg_Order": {}
+                            },
+                            "PM_Ele_Mg1_MidMg": {
+                                "PM_Ele_Mg1_Info": {},
+                                "PM_Ele_Mg1_MidMg_Action": {},
+                                "PM_Ele_Mg1_MidMg_Order": {}
+                            },
+                            "PM_Ele_Mg1_HighMg": {
+                                "PM_Ele_Mg1_Info": {},
+                                "PM_Ele_Mg1_HighMg_Action": {}
+                            }
+                        }
+                    },
+                    "PM_Ele_Phos": {
+                        "PM_Ele_Phos0": {},
+                        "PM_Ele_Phos1": {
+                            "PM_Ele_Phos1_LowPhos": {
+                                "PM_Ele_Phos1_Info": {},
+                                "PM_Ele_Phos1_LowPhos_Action": {},
+                                "PM_Ele_Phos1_LowPhos_Order": {}
+                            },
+                            "PM_Ele_Phos1_HighPhos": {
+                                "PM_Ele_Phos1_Info": {},
+                                "PM_Ele_Phos1_HighPhos_Action": {}
+                            }
+                        }
+                    }
+                },
+                "PM_TRANSITION": {
+                    "PM_Diet": {},
+                    "PM_INSULIN_DECISION": {
+                        "PM_SUBQ": {
+                            "PM_TDD_Explain": {},
+                            "PM_RECOMMEND_TEXT": {},
+                            "PM_BASAL": {},
+                            "PM_MEALS": {}
+                        }
+                    },
+                    "PM_PATIENTCARE": {
+                        "PM_PATIENT_ORDER": {},
+                        "PM_PATIENT_DC": {
+                            "BEDSIDE BLOOD GLUCOSE MONITORING": {}
+                        }
+                    }
+                },
+                "PM_Lab": {
+                    "PM_LAB_ORDER": {},
+                    "PM_LAB_DC": {
+                        "BASIC METABOLIC PANEL": {},
+                        "MAGNESIUM LEVEL": {},
+                        "PHOSPHORUS LEVEL": {},
+                        "BMP": {}
+                    }
+                },
+                "PM_Notify": {
+                    "PM_Notify_pH<": {},
+                    "PM_Notify_glucose>": {},
+                    "PM_Notify_glucose<": {},
+                    "PM_Notify_K>": {},
+                    "PM_Notify_K<": {},
+                    "PM_Notify_Foot": {}
+                },
+                "PM_ResolvedDC": {
+                    "PM_ResolvedDC_Fluid": {
+                        "FluidList": {},
+                        "SODIUM BICARBONATE/STERILE WATER 100 MEQ/500 ML": {},
+                        "INSULIN ASPART": {},
+                        "INSULIN DETEMIR": {},
+                        "INSULIN GLARGINE": {},
+                        "INSULIN LISPRO": {},
+                        "INSULIN REGULAR": {},
+                        "INSULIN REGULAR, HUMAN REC/NS 250 UNITS/250 ML": {},
+                        "INSULIN REGULAR/NS 100 UNITS/100 ML": {}
+                    },
+                    "PM_ResolvedDC_Ele": {
+                        "POTASSIUM CHLORIDE 10 MEQ/100 ML INTRAVENOUS SOLUTION": {},
+                        "POTASSIUM CHLORIDE 10 MEQ/50 ML INTRAVENOUS SOLUTION": {},
+                        "POTASSIUM CHLORIDE 20 MEQ/100 ML INTRAVENOUS SOLUTION": {},
+                        "MAGNESIUM SULFATE IV": {},
+                        "SODIUM PHOSPHATE": {}
+                    },
+                    "PM_ResolvedDC_Lab": {
+                        "BASIC METABOLIC PANEL": {},
+                        "POTASSIUM LEVEL": {},
+                        "MAGNESIUM LEVEL": {},
+                        "PHOSPHORUS LEVEL": {},
+                        "LACTIC ACID LVL": {},
+                        "ABG NNM": {},
+                        "ABG PRM": {},
+                        "ACETONE QUANT": {},
+                        "ARTERIAL BLOOD GAS SOCAL": {},
+                        "BETA HYDROXYBUTYRATE": {},
+                        "BETA HYDROXYBUTYRATE.": {},
+                        "BLOOD GAS ARTERIAL W LACTATE GWU": {},
+                        "BLOOD GAS ARTERIAL WITH COOXIMETRY": {},
+                        "OSMOLALITY SERUM": {},
+                        "BMP": {}
+                    },
+                    "PM_ResolvedDC_PtC": {
+                        "BEDSIDE BLOOD GLUCOSE MONITORING": {},
+                        "CONSULT TO PROVIDER": {},
+                        "DIABETES EDUCATION": {},
+                        "NOTIFY PROVIDER LABORATORY RESULTS": {},
+                        "DIET": {}
+                    },
+                    "PM_ResolvedDC_Proto": {
+                        "POTASSIUM CHLORIDE - IV - ICU": {},
+                        "MAGNESIUM SULFATE - IV": {},
+                        "SODIUM PHOSPHATE - ORAL & IV": {},
+                        "INSULIN INFUSION PROTOCOL ADVISOR, DIABETIC KETOACIDOSIS - DKA": {}
+                    }
+                }
+            }
+        }
+    }
+}
