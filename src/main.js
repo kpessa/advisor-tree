@@ -1,21 +1,7 @@
-import App from './App.svelte';
-import { processData } from './data/app.js';
+import App from './App.svelte'
 
-async function startApp() {
-	try {
-		const processedData = await processData();
-		
-		const app = new App({
-			target: document.body,
-			props: {
-				treeData: processedData
-			}
-		});
+const app = new App({
+  target: document.getElementById('app'),
+})
 
-		return app;
-	} catch (error) {
-		console.error('Error starting the app:', error);
-	}
-}
-
-startApp();
+export default app
