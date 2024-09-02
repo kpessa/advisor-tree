@@ -153,22 +153,12 @@
       .attr("width", width)
       .attr("height", height)
       .attr("viewBox", [0, 0, width, height])
-      .attr("style", "max-width: 100%; height: auto; font: 14px sans-serif; user-select: none;")
-      .style("border", "2px solid black"); // Add this line for the border
-
-    // Add a background rectangle
-    svg.append("rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("fill", "white");
+      .attr("style", "max-width: 100%; height: auto; font: 14px sans-serif; user-select: none;");
 
     // Add zoom behavior
     zoom = d3.zoom()
       .scaleExtent([0.1, 4])
-      .on("zoom", (event) => {
-        g.attr('transform', event.transform);
-        updateViewBox(event.transform);
-      });
+      .on("zoom", zoomed);
 
     svg.call(zoom);
 
@@ -202,14 +192,6 @@
       .scale(0.8);
     svg.call(zoom.transform, initialTransform);
   });
-
-  // Add this new function to update the viewBox
-  function updateViewBox(transform) {
-    const { x, y, k } = transform;
-    const newWidth = width / k;
-    const newHeight = height / k;
-    svg.attr("viewBox", `${-x / k} ${-y / k} ${newWidth} ${newHeight}`);
-  }
 </script>
 
 <div id="tree-container"></div>
