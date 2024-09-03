@@ -13,10 +13,14 @@
     "@sveltejs/adapter-auto": "^3.2.4",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "svelte": "^4.0.0",
-    "vite": "^5.4.2"
+    "vite": "^5.4.2",
+    "vite-plugin-monaco-editor": "^1.1.0"
   },
   "dependencies": {
     "d3": "^7.9.0",
+    "monaco-editor": "^0.51.0",
+    "prism-svelte": "^0.5.0",
+    "prismjs": "^1.29.0",
     "sirv-cli": "^2.0.0"
   }
 }

@@ -1,48 +1,38 @@
 import htgData from './htg.json';
 
 export async function processData() {
-    // Check if tree_structure exists in localStorage
-    const storedTreeStructure = localStorage.getItem('tree_structure');
-    if (storedTreeStructure) {
-        console.log('Using existing tree_structure from localStorage');
-        return JSON.parse(storedTreeStructure);
-    }
-
     console.log('Creating new tree_structure');
-
-    // Create an object to store all nodes and their children
-    const allNodes = {};
 
     const htgObjects = htgData.RCONFIG.OBJECT;
 
-    // Process the OBJECT section of htg.json
-    htgObjects.forEach(obj => {
-        const key = obj.OBJECTKEY;
-        const children = obj.SUB ? obj.SUB.map(sub => sub.OBJECTKEY) : [];
-        allNodes[key] = children;
-    });
+    // Find the userarea object
+    const userarea = htgObjects.find(obj => obj.OBJECTKEY === 'userarea');
 
-    console.log(`Number of top-level nodes: ${Object.keys(allNodes).length}`);
+    if (!userarea) {
+        console.error('userarea not found');
+        return null;
+    }
 
-    // Count total nodes including children
-    const totalNodes = Object.entries(allNodes).reduce((total, [node, children]) => total + 1 + children.length, 0);
-    console.log(`Total number of nodes including children: ${totalNodes}`);
+    // Recursive function to build the complete tree
+    function buildTree(obj) {
+        const children = obj.SUB ? obj.SUB.map(sub => {
+            const childObj = htgObjects.find(o => o.OBJECTKEY === sub.OBJECTKEY);
+            return childObj ? buildTree(childObj) : null;
+        }).filter(Boolean) : [];
 
-    // The tree building function
-    function buildTree(key) {
-        if (key in allNodes) {
-            return Object.fromEntries(allNodes[key].map(child => [child, buildTree(child)]));
-        }
-        return {};
+        return {
+            ...obj,
+            children: children.length > 0 ? children : undefined
+        };
     }
 
     // Create the tree structure with 'userarea' as the root
-    const treeStructure = {
-        "userarea": buildTree("userarea")
-    };
+    const treeStructure = buildTree(userarea);
 
-    // Save the tree structure to localStorage
-    localStorage.setItem('tree_structure', JSON.stringify(treeStructure));
+    console.log(`Tree structure size: ${JSON.stringify(treeStructure).length} characters`);
+
+    // Log the first few levels of the tree structure for debugging
+    console.log(JSON.stringify(treeStructure, null, 2).substring(0, 1000) + '...');
 
     return treeStructure;
 }

@@ -1,43 +1,18 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
   import * as d3 from 'd3';
   import ZoomControl from './ZoomControl.svelte';
   import NodeDetail from './NodeDetail.svelte';
 
   export let treeData;
 
-  function transformData(data) {
-    const result = {
-      name: Object.keys(data)[0],
-      children: []
-    };
-    
-    function recurse(obj, current) {
-      for (const key in obj) {
-        if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
-          const child = { name: key, children: [] };
-          current.children.push(child);
-          recurse(obj[key], child);
-        }
-      }
-      if (current.children.length === 0) {
-        delete current.children;
-      }
-    }
-    
-    recurse(data[result.name], result);
-    return result;
-  }
-
-  let data = transformData(treeData);
-
   let root, tree, diagonal, svg, gLink, gNode;
-  const width = 1200; // Increase the width
-  const height = 800; // Set a fixed height
+  const width = 1200;
+  const height = 800;
   const marginTop = 20;
-  const marginRight = 120; // Increase right margin for labels
+  const marginRight = 120;
   const marginBottom = 20;
-  const marginLeft = 120; // Increase left margin for labels
+  const marginLeft = 120;
 
   let zoom;
   let g;
@@ -47,10 +22,18 @@
   let selectedNode = null;
   let isDetailOpen = false;
 
+  let i = 0; // Add this line to define i
+
   function handleNodeClick(event, d) {
     selectedNode = d;
     isDetailOpen = true;
-    d.children = d.children ? null : d._children;
+    if (d.children) {
+      d._children = d.children;
+      d.children = null;
+    } else {
+      d.children = d._children;
+      d._children = null;
+    }
     update(event, d);
   }
 
@@ -70,100 +53,99 @@
   }
 
   function update(event, source) {
-    const duration = event?.altKey ? 2500 : 250; // hold the alt key to slow down the transition
+    const duration = event?.altKey ? 2500 : 250;
     const nodes = root.descendants().reverse();
     const links = root.links();
 
-    // Compute the new tree layout.
     tree(root);
 
-    // Normalize for fixed-depth.
-    root.descendants().forEach((d) => {
-      d.y = d.depth * 180; // Increase horizontal spacing between levels
+    root.eachBefore(d => {
+      d.y = d.depth * 180;
     });
 
-    // Compute the new tree layout.
-    let left = root;
-    let right = root;
-    root.eachBefore(node => {
-      if (node.x < left.x) left = node;
-      if (node.x > right.x) right = node;
-    });
-
-    const newHeight = right.x - left.x + marginTop + marginBottom;
-
-    const transition = svg.transition()
-        .duration(duration)
-        .attr("height", newHeight)
-        .attr("viewBox", [-marginLeft, left.x - marginTop, width, newHeight])
-        .tween("resize", window.ResizeObserver ? null : () => () => svg.dispatch("toggle"));
-
-    // Update the nodes…
     const node = gNode.selectAll("g")
-      .data(nodes, d => d.id);
+      .data(nodes, d => d.id || (d.id = ++i));
 
-    // Enter any new nodes at the parent's previous position.
     const nodeEnter = node.enter().append("g")
-        .attr("transform", d => `translate(${source.y0},${source.x0})`)
-        .attr("fill-opacity", 0)
-        .attr("stroke-opacity", 0)
-        .on("click", handleNodeClick);
+      .attr("transform", d => `translate(${source.y0},${source.x0})`)
+      .attr("fill-opacity", 0)
+      .attr("stroke-opacity", 0)
+      .on("click", handleNodeClick);
 
     nodeEnter.append("circle")
-        .attr("r", 6) // Slightly larger circles
-        .attr("fill", d => d._children ? "#555" : "#999")
-        .attr("stroke-width", 10);
+      .attr("r", 6)
+      .attr("fill", d => d._children ? "#555" : "#999")
+      .attr("stroke-width", 10);
 
     nodeEnter.append("text")
-        .attr("dy", "0.31em")
-        .attr("x", d => d._children ? -12 : 12) // Move text slightly further from node
-        .attr("text-anchor", d => d._children ? "end" : "start")
-        .text(d => d.data.name)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-width", 3)
-        .attr("stroke", "white")
-        .attr("paint-order", "stroke")
-        .style("font-size", "14px"); // Increase font size
+      .attr("dy", "0.31em")
+      .attr("x", d => d._children ? -12 : 12)
+      .attr("text-anchor", d => d._children ? "end" : "start")
+      .text(d => d.data.OBJECTKEY || d.data.DISPLAY) // Prefer OBJECTKEY
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-width", 3)
+      .attr("stroke", "white")
+      .attr("paint-order", "stroke")
+      .style("font-size", "14px");
 
-    // Transition nodes to their new position.
-    const nodeUpdate = node.merge(nodeEnter).transition(transition)
-        .attr("transform", d => `translate(${d.y},${d.x})`)
-        .attr("fill-opacity", 1)
-        .attr("stroke-opacity", 1);
+    nodeEnter.filter(d => d.data.CONDITIONAL)
+      .append("circle")
+      .attr("r", 4)
+      .attr("cx", d => d._children ? -20 : 20)
+      .attr("fill", "red")
+      .on("click", toggleConditional);
 
-    // Transition exiting nodes to the parent's new position.
-    const nodeExit = node.exit().transition(transition).remove()
-        .attr("transform", d => `translate(${source.y},${source.x})`)
-        .attr("fill-opacity", 0)
-        .attr("stroke-opacity", 0);
+    nodeEnter.filter(d => d.showConditional)
+      .append("text")
+      .attr("dy", "1.31em")
+      .attr("x", d => d._children ? -12 : 12)
+      .attr("text-anchor", d => d._children ? "end" : "start")
+      .text(d => d.data.CONDITIONAL)
+      .attr("fill", "red")
+      .style("font-size", "12px");
 
-    // Update the links…
+    const nodeUpdate = node.merge(nodeEnter).transition().duration(duration)
+      .attr("transform", d => `translate(${d.y},${d.x})`)
+      .attr("fill-opacity", 1)
+      .attr("stroke-opacity", 1);
+
+    const nodeExit = node.exit().transition().duration(duration).remove()
+      .attr("transform", d => `translate(${source.y},${source.x})`)
+      .attr("fill-opacity", 0)
+      .attr("stroke-opacity", 0);
+
     const link = gLink.selectAll("path")
-      .data(links, d => d.target.id);
+      .data(links, d => d.target.id); // Change this line
 
-    // Enter any new links at the parent's previous position.
     const linkEnter = link.enter().append("path")
-        .attr("d", d => {
-          const o = {x: source.x0, y: source.y0};
-          return diagonal({source: o, target: o});
-        });
+      .attr("d", d => {
+        const o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      })
+      .attr("stroke", d => d.target.data.CONDITIONAL ? "red" : "#555") // Change this line
+      .attr("stroke-opacity", 0.4)
+      .attr("stroke-width", 1.5);
 
-    // Transition links to their new position.
-    link.merge(linkEnter).transition(transition)
-        .attr("d", diagonal);
+    link.merge(linkEnter).transition().duration(duration)
+      .attr("d", diagonal)
+      .attr("stroke", d => d.target.data.CONDITIONAL ? "red" : "#555"); // Change this line
 
-    // Transition exiting nodes to the parent's new position.
-    link.exit().transition(transition).remove()
-        .attr("d", d => {
-          const o = {x: source.x, y: source.y};
-          return diagonal({source: o, target: o});
-        });
+    link.exit().transition().duration(duration).remove()
+      .attr("d", d => {
+        const o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      });
 
-    // Stash the old positions for transition.
     root.eachBefore(d => {
       d.x0 = d.x;
       d.y0 = d.y;
     });
+  }
+
+  function toggleConditional(event, d) {
+    event.stopPropagation();
+    d.showConditional = !d.showConditional;
+    update(event, d);
   }
 
   function zoomed(event) {
@@ -171,7 +153,8 @@
   }
 
   onMount(() => {
-    root = d3.hierarchy(data);
+    console.log(treeData);
+    root = d3.hierarchy(treeData);
     
     tree = d3.tree().size([height - marginTop - marginBottom, width - marginRight - marginLeft]);
     diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x);
@@ -182,7 +165,6 @@
       .attr("viewBox", [0, 0, width, height])
       .attr("style", "max-width: 100%; height: auto; font: 14px sans-serif; user-select: none;");
 
-    // Add zoom behavior
     zoom = d3.zoom()
       .scaleExtent([0.1, 4])
       .on("zoom", (event) => {
@@ -192,7 +174,6 @@
 
     svg.call(zoom);
 
-    // Add a new group for the entire graph
     g = svg.append("g")
       .attr("transform", `translate(${marginLeft},${marginTop})`);
 
@@ -208,15 +189,15 @@
 
     root.x0 = height / 2;
     root.y0 = 0;
-    root.descendants().forEach((d, i) => {
-      d.id = i;
+    i = 0; // Reset i before assigning ids
+    root.descendants().forEach((d, index) => {
+      d.id = index;
       d._children = d.children;
-      if (d.depth && d.data.name.length !== 7) d.children = null;
+      if (d.depth && d.data.OBJECTKEY !== 'userarea') d.children = null;
     });
 
     update(null, root);
 
-    // Center the graph
     const initialTransform = d3.zoomIdentity
       .translate(width / 2, height / 2)
       .scale(0.8);
